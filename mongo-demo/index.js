@@ -1,15 +1,36 @@
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/playground')
-.then(() => console.log("Connected to the MongoDB..."))
-.catch(err => console.error("Could not connected to the MongoDB...", err));
+    .then(() => console.log("Connected to the MongoDB..."))
+    .catch(err => console.error("Could not connected to the MongoDB...", err));
 
 const courseschema = new mongoose.Schema ({
-    name: { type: String, required: true},
+    name: { 
+        type: String, 
+        required: true,
+        minlength: 5,
+        maxlength: 255
+    },
     author: String,
+    category: {
+        type: String,
+        required: true,
+        enum:["web", "mobile", "network"]
+    },
     tags:[String],
-    date: {type: Date, default: Date.now},
-    isPublished: Boolean
+    date: {
+        type: Date, 
+        default: Date.now
+    },
+    isPublished: Boolean,
+    price: {
+        type: Number, 
+        required: true, function () {
+            return this.isPublished;
+        },
+        min: 10,
+        max: 200
+    }
 })
 
 const Course = mongoose.model('Course', courseschema);
@@ -19,8 +40,10 @@ async function createCourse() {
     const course = new Course ({
         name: "Vue course",
         author: "Gayathri",
+        category: "se",
         tags: ["Vue", "Frontend"],
-        isPublished: true
+        isPublished: true,
+        price: 100
     })
 
     try {
@@ -50,6 +73,6 @@ async function updatecourse(id) {
     console.log(result);
 }
 
-// createCourse();
+createCourse();
 // getCourse();
 // updatecourse('616af453a97a0c59075269e6')
