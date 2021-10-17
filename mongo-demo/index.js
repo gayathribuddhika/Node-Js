@@ -48,17 +48,18 @@ async function createCourse() {
     const course = new Course ({
         name: "Vue course",
         author: "Gayathri",
-        category: "web",
-        tags: [],
+        category: "SE",
+        tags: ["Hello"],
         isPublished: true,
-        price: 100
+        // price: 100
     })
 
     try {
         const result = await course.save();
         console.log(result, "\n Successfully added to the database...");
     } catch (ex) {
-        console.log(ex.message)
+        for(field in ex.errors)
+        console.log(ex.errors[field].message);
     }
 
     
@@ -81,6 +82,6 @@ async function updatecourse(id) {
     console.log(result);
 }
 
-createCourse();
+// createCourse();
 // getCourse();
 // updatecourse('616af453a97a0c59075269e6')
