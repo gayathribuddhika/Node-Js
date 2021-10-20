@@ -42,7 +42,7 @@ async function listCourses() {
   console.log(courses);
 }
 
-createAuthor('Gayathri', 'My bio', 'My Website');
+// createAuthor('Gayathri', 'My bio', 'My Website');
 
 // createCourse('Node Course', 'authorId')
 
