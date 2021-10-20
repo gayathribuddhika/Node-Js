@@ -15,7 +15,8 @@ const courseschema = new mongoose.Schema ({
     category: {
         type: String,
         required: true,
-        enum:["web", "mobile", "network"]
+        enum:["web", "mobile", "network"],
+        lowercase: true
     },
     tags: {
         type: Array,
@@ -48,10 +49,10 @@ async function createCourse() {
     const course = new Course ({
         name: "Vue course",
         author: "Gayathri",
-        category: "SE",
+        category: "WEB",
         tags: ["Hello"],
         isPublished: true,
-        // price: 100
+        price: 100
     })
 
     try {
@@ -82,6 +83,6 @@ async function updatecourse(id) {
     console.log(result);
 }
 
-// createCourse();
+createCourse();
 // getCourse();
 // updatecourse('616af453a97a0c59075269e6')
